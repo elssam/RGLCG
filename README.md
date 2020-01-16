@@ -8,7 +8,7 @@ This work uses data from the Alzheimer's Disease Neuroimaging Initiative publicl
 The image data are processed accoding to the pipeline reported in the script pre_process.sh Tractography, connectome creation and feature extraction is given in the scripts compute_conn_CSA.py, tracking_conn_ACT.py, metrics.py and metrics.py
 
 
-![image](https://github.com/elssam/GWAS-BCCAD/blob/master/GWAS_pipelines2.png)
+![image](https://github.com/elssam/RGLCG/blob/master/radiogenomics2.png)
 
 # Download the Data
 The data needed in this analysis are accessable in the [Data folder](https://github.com/elssam/RGLCG/tree/master/Data)
