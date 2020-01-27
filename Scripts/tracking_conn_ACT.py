@@ -1,6 +1,6 @@
 ############# This is the version of the code which performs also 
 #### the ACT (Anatomically-constrained tractography)
-#
+# A. Crimi 2020
 # WARNING: it requires Dipy 1.0 and Python 3.6
 #
 #####################################################################
