@@ -15,4 +15,4 @@ The main bioinformatics analyis is in the scipt analysis.py
 # Download the Data
 The data extracted from MRI volumes  needed in this analysis are accessable in the [Data folder](https://github.com/elssam/RGLCG/tree/master/Data)
 Those are the resulting connectomes, and the features.
-While the neuroimaging scripts are inside the folder [neuroscipts](https://github.com/elssam/RGLCG/tree/master/neuroscripts)
+While the neuroimaging scripts are inside  [this folder](https://github.com/elssam/RGLCG/tree/master/Scripts)
