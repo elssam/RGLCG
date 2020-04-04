@@ -19,22 +19,9 @@ from sklearn.linear_model import Ridge
 
 ```python
 data=pd.read_csv("Final.csv") #raw features
-```
-
-
-```python
-data.head()
-```
-
-
-```python
 REG= data.region.unique().tolist()
 STA= data.status.unique().tolist()
 VIS= data.visit.unique().tolist()
-```
-
-
-```python
 L=[x[6:] for x in REG]
 ```
 
@@ -45,8 +32,6 @@ L=[x[6:] for x in REG]
 #integrate and test
 TRY=pd.read_csv("TEMP") #all biomart genes 56, unique are 18.
 TRY=TRY.T
-#TRY.head()
-
 #Rename Columns as the second row (genes)
 TRY.columns=TRY.iloc[2]
 later=TRY.iloc[0:3]
@@ -71,10 +56,9 @@ for x in TRY.columns:
         k[x]=1
 
 TRY.columns =n
-```
 
 # Read the information about probe sets and gene ids
-```python
+
 later2=later.iloc[:,7:]
 later_final=later2.T
 later_final["names"]= TRY.columns[:]
@@ -90,9 +74,7 @@ testy=pd.read_csv("Differences_All.txt")
 testy=testy[testy.region_baseline=="region1"]
 masky=testy.status_baseline=='AD'
 masky2=masky==False
-```
 
-```python
 def ttesty(x):
     '''Find the Genes that were differentialy expressed'''
     m=masky
@@ -129,21 +111,15 @@ nw_col.append("id")
 #rename with the following
 new_col=[i for i in d]
 new_col.append("id")
-```
-
-```python
 TRY=TRY[nw_col]
 TRY.columns=new_col
 ```
-
 
 ### Now, do the same analysis like above:
 
 # Testing Association (gene with region difference) with Spearman
 
 ```python
-#I AM CHEATING HERE: by using duplicate genes. Get unique ask for help
-
 #Reshape for each region (loop through regions)
 ff=pd.read_csv("new/alex.txt",header=None,names=['region','reg_id','AAL_name'])
 
@@ -200,10 +176,7 @@ def times_no(List,n=1000):
 testt= merge1
 testt=testt.iloc[:,16:]
 testt_plot=testt.apply(times_no)
-```
 
-
-```python
 #without row cluster
 
 sns.set(font_scale=1.3)
@@ -217,7 +190,6 @@ plt.xlabel('Gene Expressions*1000', fontsize=15)
 
 ```python
 #NOTE THE DATA WILL HAVE REDUNDANCY IN GENE EXPRESSIONS: SOLVED
-
 data_all=pd.DataFrame()
 for reg in REG:
     merge1=[]
@@ -233,10 +205,7 @@ for reg in REG:
     #integrate and test
     merge1 = pd.merge(test1,TRY,on="id")
     data_all=data_all.append(merge1)
-```
 
-
-```python
 #Correlations:
 #plot correlations
 #sns.heatmap(merge1.corr(method='spearman'), cmap="YlGnBu")
@@ -260,11 +229,6 @@ for j,i in enumerate((89*' ').split(" ")):
         s.append(j+1)
     else:
         s.append(i)
-print (s)
-```
-
-
-```python
 sns.set()
 sns.set(style="whitegrid", palette="muted",font_scale=2.5)
 plt.figure(figsize=(35,20 ))
@@ -278,7 +242,6 @@ plt.xticks(fontsize=35,)# rotation=90)
 plt.yticks(fontsize=35 )
 plt.xlabel("Brain Region",fontsize=40)
 plt.ylabel("Clustering Coefficient Change",fontsize=40)
-
 
 sns.set()
 sns.set(style="whitegrid", palette="muted",font_scale=2.5)
@@ -294,7 +257,6 @@ plt.yticks(fontsize=35 )
 plt.xlabel("Brain Region",fontsize=40)
 plt.ylabel("Local Efficiency Change",fontsize=40)
 
-
 sns.set()
 sns.set(style="whitegrid", palette="muted",font_scale=2.5)
 plt.figure(figsize=(35,20 ))
@@ -308,12 +270,9 @@ plt.xticks(fontsize=35,)# rotation=90)
 plt.yticks(fontsize=35 )
 plt.xlabel("Brain Region",fontsize=40)
 plt.ylabel("Betweenness Centrality Change",fontsize=40)
-```
 
 
-```python
 sns.set()
-
 sns.set(style="whitegrid", palette="muted",font_scale=2.5)
 plt.figure(figsize=(35,20 ))
 # Draw a categorical scatterplot to show each observation
@@ -330,7 +289,6 @@ plt.savefig("new/betweenness_bf.png")
 plt.show()
 
 sns.set()
-
 sns.set(style="whitegrid", palette="muted",font_scale=2.5)
 plt.figure(figsize=(35,20 ))
 g=sns.swarmplot(x="region", y="local_eff", hue="visit",
@@ -346,7 +304,6 @@ plt.savefig("new/local_eff_bf.png")
 plt.show()
 
 sns.set()
-
 sns.set(style="whitegrid", palette="muted",font_scale=2.5)
 plt.figure(figsize=(35,20 ))
 g=sns.swarmplot(x="region", y="cluster_coef", hue="visit",
@@ -363,7 +320,6 @@ plt.savefig("new/cluster_coef_bf.png")
 plt.show()
 ```
 
-
 # Regions Associations
 ```python
 v='betweencentrality'
@@ -377,10 +333,7 @@ plt.figure(figsize=(30,30))
 cmap = sns.diverging_palette(h_neg=210, h_pos=350, s=90, l=30, as_cmap=True)
 sns.clustermap(data=regcor.corr(method='spearman')*1000,row_cluster=True,col_cluster=True,yticklabels=True,xticklabels=True, cmap="YlGnBu",mask=False)
 regcor.corr(method='spearman')*1000
-```
 
-
-```python
 v='local_eff'
 lc=[v,'region_baseline','id']
 regcor=data_all[lc]
@@ -394,20 +347,13 @@ cmap = sns.diverging_palette(h_neg=210, h_pos=350, s=90, l=30, as_cmap=True)
 sns.clustermap(data=regcor.corr(method='spearman')*1000,row_cluster=True,col_cluster=True,yticklabels=True,xticklabels=True, cmap="YlGnBu",mask=False)
 regcor.corr(method='spearman')*1000
 
-```
-
-
-```python
 v='cluster_coef'
 lc=[v,'region_baseline','id']
 regcor=data_all[lc]
 regcor=regcor.pivot(index='id', columns='region_baseline', values='cluster_coef')
 regcor=regcor.reindex(['region'+str(i) for i in range(1,91)], axis=1)
 regcor.columns=[str(i) for i in range(1,91)]
-```
 
-
-```python
 sns.set(font_scale=.75)
 plt.figure(figsize=(30,30))
 cmap = sns.diverging_palette(h_neg=210, h_pos=350, s=90, l=30, as_cmap=True)
@@ -416,8 +362,6 @@ sns.clustermap(data=regcor.corr(method='spearman')*1000,row_cluster=True,col_clu
 regcor.corr(method='spearman')*1000
 
 ```
-
-### Note: did not do it per status
 
 # Quantile Regression Model
 
@@ -471,10 +415,7 @@ def LOG(LIST):
         j=-(np.log10(float(i),order=20))
         J.append(j)
     return(J)
-```
 
-
-```python
 ALL_final=ALL_in.apply(LOG)
 ```
 
@@ -651,11 +592,6 @@ GLOBAL.columns=['id', 'louvain_baseline', 'char_path_len_baseline', 'global_eff_
 
 
 ```python
-GLOBAL.columns
-```
-
-
-```python
 def edit_sign(d):
     cols=['transitivity', 'global_eff', 'louvain', 'char_path_len']
     for i in cols:
@@ -664,43 +600,21 @@ def edit_sign(d):
         h=str(i)+"_diff"
         d[i]=d[[fl,bs,i]].apply(lambda x: -1*x[i] if x[fl] < x[bs] else x[i], axis=1)
     return d
-```
 
-
-```python
 GLOBAL_final=edit_sign(GLOBAL)
-```
-
-
-```python
 GLOBAL_final.to_csv("new/Global_final.csv")
-```
 
-# Importing CDR dataset`
-
-
-```python
 CDR=pd.read_csv("CDR.csv")
 ```
 
-
-```python
-CDR.columns
-```
-
 # Adding RID to GLOBAL dadaset
-
 
 ```python
 def intrid(c):
     '''intrid is used to define an RID column in the GLOBAL data using the available id column'''
     return int(c.split("_")[2])
 GLOBAL_final['RID']=GLOBAL_final["id"].apply(intrid)
-```
 
-
-```python
-#sc m12 
 #Here I am calculating a CDR-baseline and CDR_followup for all patients - redundant in each patient.
 def cdr_visits(d):
     '''It takes the data frame for a certain id, and calculates the baseline and follow-up score for each one, and the sums'''
@@ -720,28 +634,9 @@ def cdr_diff(d):
     d['CDR_followup']=d[fl].sum(axis=1)
     d['CDR_diff']=d['CDR_baseline']-d['CDR_followup']
     return d
-
-```
-
-
-```python
-
 CDR_Visits=cdr_visits(pd.read_csv("CDR.csv"))
-```
-
-
-```python
 CDR_final = cdr_diff(cdr_visits(CDR))
-```
-
-
-```python
 CDR_final.to_csv('new/CDR_Differences.csv')
-```
-
-
-```python
-CDR_final.columns
 ```
 
 # Importing Gene data: Imported Already Above
@@ -751,50 +646,21 @@ CDR_final.columns
 
 ```python
 TRY['RID']=TRY["id"].apply(intrid)
-```
-
 # Merge data 
-
-
-```python
 #integration of genetic data 
 merge = pd.merge(GLOBAL_final,TRY,on="RID")
 #Integration of CDR data
 merge1= pd.merge(merge,CDR_final,on="RID")
-```
-
-
-```python
 merge1.columns
-```
-
-
-```python
 merge1.to_csv("new/Chapter4.csv")
-```
-
-
-```python
 merge1.to_csv("Chapter4.csv")
-```
-
-
-```python
 merge1.to_csv("new/Chapter4_copy.csv")
-```
 
-
-```python
 #Define the genes, features and CDRs (differences)
-
 F=['transitivity', 'global_eff', 'louvain', 'char_path_len']
 G=merge1.loc[:,'APBB2':'ABCA7'].columns
 C=merge1.loc[:,['CDMEMORY', 'CDORIENT', 'CDJUDGE', 'CDCOMMUN','CDHOME', 'CDCARE','CDGLOBAL', 'CDR_diff']].columns
-```
-
 # Plot baseline and follow-up for global features
-
-```python
 pl=['transitivity','global_eff', 'louvain', 'char_path_len']
 PL={'transitivity':'Transitivity','global_eff':'Global Effect', 'louvain':'Louvain Modularity', 'char_path_len':'Characteristic Path Length'}
 s1='_baseline'
@@ -826,12 +692,9 @@ for j in pl:
     plt.ylabel(PL[j])
     sns.despine( trim=True)
     plt.show()
-    
-    #print(merge1[x])
 ```
 
 # Plotting the CDR
-
 
 ```python
 pl=['CDMEMORY', 'CDORIENT', 'CDJUDGE',
@@ -866,8 +729,6 @@ for j in pl:
 ```
 
 # Quantile Regression
-
-
 ```python
 #Define a functio to perform quantile regression on each gene (OR, cdr), vs feature
 def QR(f,g,df=merge1):
@@ -878,10 +739,7 @@ def QR(f,g,df=merge1):
         tryme2=smf.quantreg('Y~X',data=df).fit(maxiter=100000,q=0.5)
         reg_p.append(tryme2.pvalues[1] )
     return reg_p
-```
 
-
-```python
 def QR_beta(f,g,df=merge1):
     reg_p=[]
     Y=df[f].astype(float)
@@ -890,12 +748,7 @@ def QR_beta(f,g,df=merge1):
         tryme2=smf.quantreg('Y~X',data=df).fit(maxiter=100000,q=0.5)
         reg_p.append(str(round(tryme2.params[1],8))+" ("+str(round(tryme2.pvalues[1],4))+" )" )#reg_p.append(tryme2.pvalues[1] )
     return reg_p
-```
 
-# Quantile with CDR as Y, MRI as X
-
-
-```python
 #Create dectionaty for a dataframe of p-values
 D={}
 D['Global Features']=F
@@ -908,18 +761,11 @@ print(globalFeatures_cdr_quantile)
 ```
 
 # Ridge of CDR on BOTH imaging and genes
-
-
 ```python
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
-```
-
-
-```python
 ALPHA=list(np.arange(1e-20,1,1e-1))+list(np.arange(1,20,1))
-
 def select_alpha(x,y):
     '''Select the best alpha for the model'''
     ridge=Ridge()#####Lasso()
@@ -943,14 +789,8 @@ def fit_ridge_plot(C,f,x2,alpha,df=merge1):
     X=df[cos].astype(float)
     clf = Ridge(alpha=alpha,normalize=True,fit_intercept=False)#### Lasso(alpha=alpha,normalize=True)
     return clf.fit(X, Y)
-    #reg_p.append(str(round(tryme2.params[1],8))+" ("+str(round(tryme2.pvalues[1],4))+" )" )#reg_p.append(tryme2.pvalues[1] )
-    #return reg_p
-```
 
 # Defining X as the Imaging differences AND the gene expressions - and Y as the CDR
-
-
-```python
 ALPHA=list(np.arange(1e-20,1,1e-1))+list(np.arange(1,150,1))
 fout=open("new/ridge.txt","wt")
 fout.writelines("&".join(['CDR','Global Metric','Alpha','score',]+list(G))+"\n")
