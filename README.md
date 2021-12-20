@@ -1,7 +1,10 @@
 # RGLCG
 Relating Global and Local Connectome Changes to Dementia and Targeted Gene Expressions in Alzheimer’s Disease
 
-This repo comprises the code for the manuscript Elsheikh et al. XXX XXX 
+This repo comprises the code for the manuscript: 
+* Elsheikh SSM, Chimusa ER, Alzheimer's Disease Neuroimaging Initiative, Mulder NJ and Crimi A (2021) Relating Global and Local Connectome Changes to Dementia and Targeted Gene Expression in Alzheimer's Disease. Front. Hum. Neurosci. 15:761424. doi: [10.3389/fnhum.2021.761424](https://doi.org/10.3389/fnhum.2021.761424)
+
+*For a brief summary of the paper, check out this [video](https://www.youtube.com/watch?v=bDPNtb5bFZc)*
 
 This work uses data from the Alzheimer's Disease Neuroimaging Initiative publicly available
 
